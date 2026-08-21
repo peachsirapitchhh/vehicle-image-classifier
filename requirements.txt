@@ -1,5 +1,35 @@
-streamlit
-tensorflow-cpu==2.20.0
-numpy==1.26.4
-pillow==11.1.0
-pandas==2.0
+# streamlit
+# tensorflow-cpu==2.20.0
+# numpy==1.26.4
+# pillow==11.1.0
+# pandas==2.0
+
+# Streamlit demo: vehicle image classifier
+# Loads models/image_classifier_vehicles.h5 + *_classes.json produced by
+# model/model-trainer.py (KNIME). No knime.scripting.io needed here.
+#
+# KNIME writes the .h5 with Keras 2. Keras 3 cannot deserialize it
+# (DepthwiseConv2D rejects the `groups` key Keras 2 wrote into the config).
+# Rather than pinning TF back to 2.15 - which has no wheel for the Python
+# version Streamlit Cloud now defaults to, nor for Apple Silicon - keep a
+# current TF and route tf.keras to the legacy Keras 2 package.
+# keras_compat.py sets TF_USE_LEGACY_KERAS=1 before tensorflow is imported,
+# and retries the load with a patched DepthwiseConv2D if tf-keras is missing.
+#
+# Streamlit Cloud: pick Python 3.11 or 3.12 in Advanced settings. TF 2.17 has
+# no wheel for 3.13, and a failed install shows up as a Keras-3 load error
+# only if an older cached build is still serving the app.
+
+streamlit>=1.49,<2   # 1.42+ for bar_chart(horizontal=), 1.49+ for width="stretch"
+
+# Linux (Streamlit Cloud) -> cpu-only wheel, ~200MB smaller than full tensorflow
+tensorflow-cpu==2.17.1 ; sys_platform == "linux"
+# local dev, incl. Apple Silicon
+tensorflow==2.17.1 ; sys_platform != "linux"
+
+# provides Keras 2 as `tf.keras`; minor version must track tensorflow
+tf-keras==2.17.0
+
+numpy>=1.26,<2.0
+Pillow>=10.0
+h5py>=3.10
