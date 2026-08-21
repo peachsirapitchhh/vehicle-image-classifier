@@ -125,9 +125,9 @@ st.set_page_config(
 # Artifacts live in models/, next to this file, so the app also works on
 # Streamlit Cloud where the KNIME output directory does not exist.
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_DIR = Path(os.environ.get("MODEL_DIR", BASE_DIR / "models"))
-MODEL_PATH = "image_classifier_vehicles.h5"
-CLASS_PATH = "image_classifier_vehicles_classes.json"
+MODEL_DIR = Path(os.environ.get("MODEL_DIR", BASE_DIR))
+MODEL_PATH = MODEL_DIR / "image_classifier_vehicles.h5"
+CLASS_PATH = MODEL_DIR / "image_classifier_vehicles_classes.json"
 
 
 @st.cache_resource(show_spinner="Loading model...")
