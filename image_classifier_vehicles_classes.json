@@ -1,0 +1,16 @@
+{
+  "class_names": [
+    "Auto Rickshaws",
+    "Bikes",
+    "Cars",
+    "Motorcycles",
+    "Planes",
+    "Ships",
+    "Trains"
+  ],
+  "image_size": [
+    160,
+    160
+  ],
+  "preprocess": "mobilenet_v2"
+}
