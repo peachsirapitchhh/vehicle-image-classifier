@@ -17,8 +17,8 @@ st.set_page_config(
 )
 
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "image_classifier_7class.h5"
-CLASS_PATH = BASE_DIR / "image_classifier_7class_classes.json"
+MODEL_PATH = BASE_DIR / "image_classifier_vehicles.h5"
+CLASS_PATH = BASE_DIR / "image_classifier_vehicles_classes.json"
 
 IMAGE_SIZE = (128, 128)
 
